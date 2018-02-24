@@ -2,7 +2,7 @@
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
     <meta charset="UTF-8">
-    <title> {% title %} </title>
+    <title> {{ site.title | default: site.github.repository_name }} </title>
 
 {% seo %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
