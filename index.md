@@ -1,5 +1,6 @@
 ---
 title: Projects & Contributions
+layout: default
 ---
 
 # My Projects
