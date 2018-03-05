@@ -6,7 +6,7 @@ description: Rakibul Yeasin Totul
 
 # My Projects
 -------------
-- [TPaste](lab.rytotul.xyz/TPaste)
+- [TPaste](TPaste)
 
 # Markdown
 
