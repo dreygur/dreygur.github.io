@@ -60,7 +60,7 @@
 						<p class="mx-auto text-white  mt-20 mb-40">
                         {{ site.ttl.short_bio }}
 						</p>
-						<a href="{{ site.ttl.emal }}" class="text-uppercase header-btn">Let Us Talk</span></a>
+						<a href="{{ site.ttl.email }}" class="text-uppercase header-btn">Let Us Talk</span></a>
 					</div>
 				</div>
 			</div>
@@ -425,7 +425,7 @@
                                 <div class="single-footer-widget">
                                     <h6>Credits</h6>
                                     <p>
-                                        Whom to give credit???
+                                    {{ site.ttl.credit }}
                                     </p>
                                     <p class="footer-text">Copyleft &copy;<script>document.write(new Date().getFullYear());</script> All rights left. Do whatever you want.<br/>Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://facebook.com/rytotul" target="_blank">Totul</a></p>
                                 </div>
@@ -462,10 +462,10 @@
                                     <h6>Follow Me</h6>
                                     <p>Let us be social</p>
                                     <div class="footer-social d-flex align-items-center">
-                                        <a href="https://facebook.com/rytotul"><i class="fa fa-facebook"></i></a>
-                                        <a href="https://twitter.com/rytotul"><i class="fa fa-twitter"></i></a>
-                                        <a href="https://dribbble.com/rytotul"><i class="fa fa-dribbble"></i></a>
-                                        <a href="https://behance.net/rytotul"><i class="fa fa-behance"></i></a>
+                                        <a href="{{ site.ttl.social.facebook }}"><i class="fa fa-facebook"></i></a>
+                                        <a href="{{ site.ttl.social.twitter }}"><i class="fa fa-twitter"></i></a>
+                                        <a href="{{ site.ttl.social.dribbble }}"><i class="fa fa-dribbble"></i></a>
+                                        <a href="{{ site.ttl.social.behance }}"><i class="fa fa-behance"></i></a>
                                     </div>
                                 </div>
                             </div>							
