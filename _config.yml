@@ -5,4 +5,4 @@ avatar: https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/je
 show_downloads: true
 google_analytics: UA-114697093-1
 layout: default
-comments: true
+comments: false
