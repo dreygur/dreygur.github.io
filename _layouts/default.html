@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <link rel="shortcut icon" type="image/x-icon" href="https://github.com/rytotul/rytotul.github.io/blob/master/fevicon.ico">
     <title>{{ page.title }}</title>
-
-{% seo %}
+    {% seo %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -18,18 +17,15 @@
       <h2 class="project-tagline">{{ site.description | default: site.github.project_tagline }}</h2>
       {% if site.github.is_project_page %}
         <a href="{{ site.github.repository_url }}" class="btn">View on GitHub</a>
-      
         {% if site.show_downloads %}
           <a href="{{ site.github.zip_url }}" class="btn">Download .zip</a>
           <a href="{{ site.github.tar_url }}" class="btn">Download .tar.gz</a>
         {% endif %}
-      
       {% endif %}
     </section>
 
     <section class="main-content">
       {{ content }}
-
       <footer class="site-footer">
         {% if site.github.is_project_page %}
           <span class="site-footer-owner"><a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.</span>
@@ -39,24 +35,24 @@
     </section>
 
     {% if page.comments %}
-    <div id="disqus_thread"></div>
-      <script>
-        /**
-        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-        /*
-        var disqus_config = function () {
-        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-        };
-        */
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://rytotul-gh.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
+      <div id="disqus_thread"></div>
+        <script>
+          /**
+          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+          
+          var disqus_config = function () {
+          this.page.url = "{{ site.github.url }}";  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = "{{ site.github.url }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://rytotul-gh.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+          </script>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     {% endif %}
     
