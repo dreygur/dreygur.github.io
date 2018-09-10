@@ -5,7 +5,7 @@ description: Rakibul Yeasin Totul
 ---
 
 # My Projects
-### [TPaste](TPaste)
+### [TPaste](TPaste)   [![Build Status](https://travis-ci.org/rytotul/TPaste.svg?branch=master)](https://travis-ci.org/rytotul/TPaste)
 The package allows you to communicate directly with Pastebin.com from your Python application, either logged in or anonymously. This can be handy for a number of reasons - dumping error logs before an abort, regular web based status updates, but can’t be bothered getting a web-server running etc.
 
 ### [SMS-TSH](SMS-TSH)   [![Build Status](https://travis-ci.org/rytotul/SMS-TSH.svg?branch=master)](https://travis-ci.org/rytotul/SMS-TSH)
