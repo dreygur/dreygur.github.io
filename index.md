@@ -2,7 +2,6 @@
 title: Projects & Contributions
 layout: default
 description: Rakibul Yeasin Totul
-permalink: /404.html
 ---
 
 # My Projects
