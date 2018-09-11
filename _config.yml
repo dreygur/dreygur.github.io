@@ -6,6 +6,7 @@ show_downloads: true
 google_analytics: UA-114697093-1
 layout: default
 comments: false
+messenger: true
 
 
 # My Custom Config
