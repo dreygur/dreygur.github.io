@@ -1,11 +1,11 @@
-theme: jekyll-theme-cayman
+# theme: jekyll-theme-cayman
+remote_theme: pmarsceill/just-the-docs
 title: Projects & Contributions
 description: Rakibul Yeasin Totul
 avatar: https://raw.githubusercontent.com/jekyll/jekyll/master/docs/favicon.ico
 show_downloads: true
 google_analytics: UA-114697093-1
-# layout: default
-layout: pmarsceill/just-the-docs
+layout: default
 comments: false
 messenger: true
 
