@@ -4,7 +4,8 @@ description: Rakibul Yeasin Totul
 avatar: https://raw.githubusercontent.com/jekyll/jekyll/master/docs/favicon.ico
 show_downloads: true
 google_analytics: UA-114697093-1
-layout: default
+# layout: default
+layout: pmarsceill/just-the-docs
 comments: false
 messenger: true
 
