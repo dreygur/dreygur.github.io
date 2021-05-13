@@ -1,0 +1,145 @@
+p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+h3 a {
+  color: #c41200;
+
+  /* Some project names are too long :( */
+  overflow: hidden;
+  display: inline-block;
+  width: 200px;
+  text-overflow: ellipsis;
+}
+
+h3 a i {
+  color: #000;
+  font-size: 14px;
+}
+
+.top-shelf .container {
+  padding: 0;
+}
+
+.top-shelf h1 {
+  padding-top: 52px;
+}
+
+.top-shelf-grey .content-container {
+  background: url(/img/illustration.png) no-repeat right bottom;
+  height: 240px;
+  width: 960px;
+}
+
+.layout-block .column-alpha {
+  margin-left: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.projects h2 {
+  clear: both;
+  padding-top: 15px;
+  padding-bottom: 6px;
+}
+
+.project.island {
+  cursor: pointer;
+  float: left;
+  font-size: 12px;
+  margin-bottom: 24px;
+  margin-right: 20px;
+
+  position: relative;
+
+  height: 200px;
+  width: 218px;
+}
+
+.project.island.last-in-row {
+  margin-right: 0px;
+}
+
+.project.island.featured-project {
+  height: 300px;
+}
+
+.project:hover {
+  background: #f5f5f1;
+}
+
+.project .island-item.featured-image {
+  height: 100px;
+  padding: 0;
+}
+
+.project .island-item.featured-image img {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.project h3 {
+  margin-bottom: 10px;
+}
+
+.project .logo {
+  position: relative;
+  top: 5px;
+}
+
+.project .bottom-links {
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  width: 196px;
+
+  position: absolute;
+  bottom: 0px;
+}
+
+.project.island-light.island-stack.island > .island-item {
+  border-color: #fff !important;
+}
+
+.project:hover.island-light.island-stack.island > .island-item {
+  border-color: #e5e5e1 !important;
+}
+
+.project:hover .bottom-links {
+  background: #fff;
+}
+
+.project .bottom-links a {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.project .repo-info {
+  color: #ccc;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.project .repo-info .language {
+  color: #999;
+  font-weight: bold;
+}
+.project .repo-info .Python { color: #228222; }
+.project .repo-info .Ruby { color: #d83800; }
+
+.project .repo-info h3 { margin-bottom: 10px; }
+.project .repo-info span { margin-right: 20px; }
+.project .bottom-links a i { color: #000; }
+
+.footer {
+  clear: both;
+}
+
+.footer-language, .footer-country {
+  display: block;
+}
+
+
+/* Octicon changes */
+.octicon.octicon-star { font-size: 14px; }
+.octicon.octicon-repo-forked { font-size: 12px; }
