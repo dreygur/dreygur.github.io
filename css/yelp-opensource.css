@@ -4,7 +4,7 @@ p {
 }
 
 h3 a {
-  color: #c41200;
+  color: #0076c4;
 
   /* Some project names are too long :( */
   overflow: hidden;
@@ -124,8 +124,8 @@ h3 a i {
   color: #999;
   font-weight: bold;
 }
-.project .repo-info .Python { color: #228222; }
-.project .repo-info .Ruby { color: #d83800; }
+.project .repo-info .Python { color: #35b90d; }
+.project .repo-info .Ruby { color: #00add8; }
 
 .project .repo-info h3 { margin-bottom: 10px; }
 .project .repo-info span { margin-right: 20px; }
