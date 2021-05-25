@@ -3986,7 +3986,9 @@ a.ybtn--green:visited {
 	padding: 11px;
 	background: #f5f5f5;
 	border: 1px solid #e6e6e6;
-	border-radius: 4px
+	border-radius: 4px;
+	overflow: hidden;
+	padding-bottom: 11px !important;
 }
 
 .island-light,
