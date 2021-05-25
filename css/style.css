@@ -5807,6 +5807,11 @@ only screen and (min-width: 990px) and (min-resolution: 192dpi) {
 	-webkit-font-smoothing: antialiased
 }
 
+.main-header_title img {
+	width: 36px;
+	margin-right: 10px;
+}
+
 @media only screen and (max-width: 989px) {
 	.responsive .main-header_title {
 		font-size: 16px;
