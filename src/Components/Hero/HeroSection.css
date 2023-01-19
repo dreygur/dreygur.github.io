@@ -1,0 +1,7 @@
+.card-img {
+    background-color: rgba(255, 255, 255, 1);
+    color: #000;
+    border-radius: 10px;
+    box-shadow: -43px -33px 0px -2px rgba(32, 64, 93, 1),
+        0px 15px 12px 0px rgba(0, 0, 0, 0.22);
+}
