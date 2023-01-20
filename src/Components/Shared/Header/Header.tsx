@@ -37,7 +37,7 @@ const Header = () => {
     };
 
     return (
-        <AppBar sx={{ backgroundColor: '#03294B' }} position="fixed" elevation={0} >
+        <AppBar sx={{ backgroundColor: '#03294B' }} position="fixed">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -84,8 +84,7 @@ const Header = () => {
                                     <Avatar sx={{ height: { xs: '30px', lg: '50px' }, width: { xs: '30px', lg: '50px' } }} alt="Remy Sharp" src={dreygur} />
                                 </IconButton>
                             </Tooltip>
-                            {/* <Typography sx={{ paddingLeft: '1rem', paddingTop: '0.5rem', fontSize: { lg: '1.5rem' } }}>Rakibul Yeasin</Typography> */}
-                            <h2 className='name lg:text-3xl mt-2' style={{ paddingLeft: '1rem', letterSpacing: '3px' }}>Rakibul Yeasin</h2>
+                            <h2 className='name lg:text-3xl mt-2' style={{ paddingLeft: '3rem', letterSpacing: '3px' }}>Rakibul Yeasin</h2>
                         </Box>
                         <Menu
                             sx={{ mt: '45px' }}
