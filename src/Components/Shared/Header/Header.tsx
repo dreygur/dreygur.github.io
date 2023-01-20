@@ -1,5 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from '@mui/material';
+
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -14,9 +14,27 @@ import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
 import './Header.css';
 import dreygur from '../../../assets/dreygur.png';
+import { Link } from 'react-router-dom';
 
 
-const pages = ['About Me', 'Contact', 'Resume', 'Projects'];
+const pages = [
+    {
+        title: 'About Me',
+        route: '/about'
+    },
+    {
+        title: 'Contact',
+        route: '/contact'
+    },
+    {
+        title: 'Resume',
+        route: '/resume'
+    },
+    {
+        title: 'Projects',
+        route: '/projects'
+    }
+]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Header = () => {
@@ -37,7 +55,7 @@ const Header = () => {
     };
 
     return (
-        <AppBar sx={{ backgroundColor: '#03294B' }} position="fixed">
+        <AppBar sx={{ backgroundColor: '#03294B' }} position="fixed" elevation={0}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -69,9 +87,9 @@ const Header = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Link underline='always' textAlign="center">{page}</Link>
+                            {pages.map((page, idx) => (
+                                <MenuItem key={idx} onClick={handleCloseNavMenu}>
+                                    <Link to={page.route} >{page.title}</Link>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -80,9 +98,11 @@ const Header = () => {
                     <Box sx={{ flexGrow: { lg: 1 }, textAlign: { xs: 'right', md: 'right', lg: 'left' } }}>
                         <Box sx={{ display: { xs: 'flex', md: 'flex', lg: 'flex' } }}>
                             <Tooltip title="Rakibul Yeasin">
-                                <IconButton sx={{ p: 0 }}>
-                                    <Avatar sx={{ height: { xs: '30px', lg: '50px' }, width: { xs: '30px', lg: '50px' } }} alt="Remy Sharp" src={dreygur} />
-                                </IconButton>
+                                <Link to='/'>
+                                    <IconButton sx={{ p: 0 }}>
+                                        <Avatar sx={{ height: { xs: '30px', lg: '50px' }, width: { xs: '30px', lg: '50px' } }} alt="Remy Sharp" src={dreygur} />
+                                    </IconButton>
+                                </Link>
                             </Tooltip>
                             <h2 className='name lg:text-3xl mt-2' style={{ paddingLeft: '3rem', letterSpacing: '3px' }}>Rakibul Yeasin</h2>
                         </Box>
@@ -110,14 +130,14 @@ const Header = () => {
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                        {pages.map((page, idx) => (
                             <Button
 
-                                key={page}
+                                key={idx}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                <Link underline='always' sx={{ textTransform: "none", fontFamily: 'roboto' }}>{page}</Link>
+                                <Link to={page.route}>{page.title}</Link>
                             </Button>
                         ))}
                     </Box>

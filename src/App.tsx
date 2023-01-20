@@ -1,8 +1,9 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './App.css';
-import Home from './Components/Pages/Home/Home';
+import Routing from './Components/Features/Routing/Routing';
 import Footer from './Components/Shared/Footer/Footer';
 import Header from './Components/Shared/Header/Header';
+import Toast from './Components/Shared/Toast/Toast';
 
 function App() {
   const theme = createTheme({
@@ -14,9 +15,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <div >
         <Header />
-        <Home />
+        <Routing />
         <Footer />
       </div>
+      <Toast />
     </ThemeProvider>
   );
 }
