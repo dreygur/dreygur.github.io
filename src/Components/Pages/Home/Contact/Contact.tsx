@@ -58,11 +58,12 @@ const Contact = () => {
         }
     }
     return (
-        <section className='container min-h-[40vh] lg:grid lg:grid-cols-4 lg:pl-40 mx-auto mt-60'>
+        <section className='container  lg:grid lg:grid-cols-4 lg:pl-40 mx-auto mt-28 lg:mt-60 mb-10'>
+            <h1 className='lg:hidden block md:block text-4xl font-extrabold text-center text-white md:pb-8 pb-16' style={{ fontFamily: 'Pattaya' }}>Contact Me</h1>
             <div className='hidden lg:block md:hidden lg:col-span-1'>
                 <h1 style={{ fontFamily: 'Pattaya' }} className='text-white font-bolder text-7xl absolute rotate-[270deg] tracking-wider top-[340px] left-[400px]'>Contact</h1>
             </div>
-            <div className='lg:col-span-2'>
+            <div className='lg:col-span-2 px-10'>
                 <form onSubmit={handleSubmit} id='contact'>
                     <div className='my-4'>
                         <TextField value={data.name} autoComplete='off' required onChange={(event) => setData({ ...data, name: event.target.value })} style={{ backgroundColor: '#244562' }} fullWidth label="Name" id="outlined-size-normal" />

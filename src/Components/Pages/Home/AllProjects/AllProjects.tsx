@@ -3,8 +3,9 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { TbGitFork } from "react-icons/tb";
 import { AiFillStar } from "react-icons/ai";
 import { IoLogoPython } from "react-icons/io";
+import Paginations from '../../../Shared/Pagination/Paginations';
 
-const Projects = () => {
+const AllProjects = () => {
     return (
         <section className='container mx-auto mt-40 relative'>
             <div className='rotate-[270deg] absolute sm:hidden md:hidden lg:block hidden top-48'>
@@ -24,8 +25,11 @@ const Projects = () => {
                     <p className="mt-7 text-white lg:text-justify text-justify md:text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </div>)
             }
+            <div className="flex justify-center mt-28">
+                <Paginations />
+            </div>
         </section>
     );
 };
 
-export default Projects;
+export default AllProjects;

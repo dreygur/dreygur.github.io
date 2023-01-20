@@ -1,3 +1,4 @@
+import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './App.css';
 import Routing from './Components/Features/Routing/Routing';
@@ -13,7 +14,7 @@ function App() {
   });
   return (
     <ThemeProvider theme={theme}>
-      <div >
+      <div className='App'>
         <Header />
         <Routing />
         <Footer />
