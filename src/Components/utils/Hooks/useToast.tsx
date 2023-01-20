@@ -2,9 +2,9 @@ import { Slide, SlideProps } from "@mui/material";
 import { useState } from "react";
 
 interface ToastProps {
-    open?: boolean,
+    open?: boolean;
     variant?: string;
-    message?: string
+    message?: string;
 };
 
 type TransitionProps = Omit<SlideProps, 'direction'>;
