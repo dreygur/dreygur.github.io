@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/dreygur.github.io/static/css/main.50cebd67.css",
+    "main.js": "/dreygur.github.io/static/js/main.cd7c6f4d.js",
+    "static/js/787.a183d5cb.chunk.js": "/dreygur.github.io/static/js/787.a183d5cb.chunk.js",
+    "static/media/dreygur2.png": "/dreygur.github.io/static/media/dreygur2.ebbc5729b03cc73176a4.png",
+    "static/media/footer.png": "/dreygur.github.io/static/media/footer.6c4bc838cb4ff27e4187.png",
+    "index.html": "/dreygur.github.io/index.html",
+    "main.50cebd67.css.map": "/dreygur.github.io/static/css/main.50cebd67.css.map",
+    "main.cd7c6f4d.js.map": "/dreygur.github.io/static/js/main.cd7c6f4d.js.map",
+    "787.a183d5cb.chunk.js.map": "/dreygur.github.io/static/js/787.a183d5cb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.50cebd67.css",
+    "static/js/main.cd7c6f4d.js"
+  ]
+}
