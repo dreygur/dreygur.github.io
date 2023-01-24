@@ -1,29 +1,31 @@
+import PhpIcon from '@mui/icons-material/Php';
 import React from 'react';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import Info from '../../info'
+import { SiCplusplus, SiGoland, SiJavascript, SiPython, SiSolidity, SiTypescript } from 'react-icons/si';
+import { VscTerminalPowershell } from "react-icons/vsc";
+import Info from '../../info';
 
 const Stack = () => {
   return (
     <section className='container lg:relative  mx-auto  lg:grid lg:grid-cols-5 lg:justify-items-center'>
       <div className=' mx-auto mt-40 lg:col-span-4'>
         <div className='lg:pl-[132px] w-64 lg:w-full text-justify mx-auto md:w-96'>
-          <p className='text-white'>{Info.stackDescription}</p>
+          <p className='text-white'>{Info.stackDescription}</p>o
         </div>
         <div className='mt-20 lg:grid lg:grid-cols-3 lg:justify-items-center flex justify-center gap-1 md:gap-16'>
           <div className=''>
-            <p className='text-white py-2 text-sm lg:text-md'> <span className='text-[#79CFFF]'><PlayArrowIcon /></span> Go</p>
-            <p className='text-white py-2 text-sm lg:text-md'> <span className='text-[#79CFFF]'><PlayArrowIcon /></span> Python</p>
-            <p className='text-white py-2 text-sm lg:text-md pl-5'> <span className='text-[#79CFFF]'><PlayArrowIcon /></span> JavaScript</p>
+            <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiGoland className='inline mr-1' /></span> Go</p>
+            <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiPython className='inline mr-1' /></span> Python</p>
+            <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiJavascript className='inline mr-1' /></span> JavaScript</p>
           </div>
           <div className=''>
-            <p className='text-white py-2 text-sm lg:text-md'> <span className='text-[#79CFFF]'><PlayArrowIcon /></span> TypeScript</p>
-            <p className='text-white py-2 text-sm lg:text-md'> <span className='text-[#79CFFF]'><PlayArrowIcon /></span> Solidity</p>
-            <p className='text-white py-2 text-sm lg:text-md pl-5'> <span className='text-[#79CFFF]'><PlayArrowIcon /></span> PHP</p>
+            <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiTypescript className='inline mr-1' /></span> TypeScript</p>
+            <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiSolidity className='inline mr-1' /></span> Solidity</p>
+            <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><PhpIcon className='inline mr-1' /></span> PHP</p>
           </div>
           <div className=''>
-            <p className='text-white py-2 text-sm lg:text-md'> <span className='text-[#79CFFF]'><PlayArrowIcon /></span> C/C++</p>
-            <p className='text-white py-2 text-sm lg:text-md'> <span className='text-[#79CFFF]'><PlayArrowIcon /></span> Bash/Shell</p>
-            <p className='text-white py-2 text-sm lg:text-md pl-5'> <span className='text-[#79CFFF]'><PlayArrowIcon /></span> JavaScript</p>
+            <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiCplusplus className='inline mr-1' /></span> C/C++</p>
+            <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><VscTerminalPowershell className='inline mr-1' /></span> Bash/Shell</p>
+            <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiJavascript className='inline mr-1' /></span> JavaScript</p>
           </div>
         </div>
       </div>
