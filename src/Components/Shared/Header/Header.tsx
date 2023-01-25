@@ -1,6 +1,6 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -11,7 +11,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import dreygur from '../../../assets/dreygur.png';
+// import dreygur from '../../../assets/dreygur.png';
 import './Header.css';
 
 
@@ -95,11 +95,11 @@ const Header = () => {
 
                     <Box sx={{ flexGrow: { lg: 1 }, textAlign: { xs: 'right', md: 'right', lg: 'left' } }}>
                         <Box sx={{ display: { xs: 'flex', md: 'flex', lg: 'flex' } }}>
-                            <Link to='/'>
+                            {/* <Link to='/'>
                                 <IconButton sx={{ p: 0 }}>
                                     <Avatar sx={{ height: { xs: '30px', lg: '50px' }, width: { xs: '30px', lg: '50px' } }} alt="Remy Sharp" src={dreygur} />
                                 </IconButton>
-                            </Link>
+                            </Link> */}
                             <Link to='/'>
                                 <h2 className='name lg:text-3xl mt-2 pl-3 hover:cursor-pointer'>Rakibul Yeasin</h2>
                             </Link>

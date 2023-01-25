@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { TbGitFork } from "react-icons/tb";
 import { AiFillStar } from "react-icons/ai";
 import { IoLogoHtml5, IoLogoPython } from "react-icons/io";
 import { SiGoland, SiJavascript, SiDart, SiTypescript, SiDocker, SiGithub } from "react-icons/si";
 import { VscTerminalPowershell } from "react-icons/vsc";
+
+// Projects from Static file
+import projects from '../../assets/projects.json';
 
 const icons = {
   'python': <IoLogoPython className='inline' />,
@@ -18,12 +21,12 @@ const icons = {
 };
 
 const Projects = () => {
-  const [projects, setProjects] = useState([Object]);
-  useEffect(() => {
-    fetch('https://api.github.com/users/dreygur/repos')
-      .then(response => response.json())
-      .then(res => setProjects(res))
-  }, []);
+  // const [projects, setProjects] = useState([Object]);
+  // useEffect(() => {
+  //   fetch('https://api.github.com/users/dreygur/repos')
+  //     .then(response => response.json())
+  //     .then(res => setProjects(res))
+  // }, []);
 
   console.log(projects)
   return (
@@ -32,10 +35,11 @@ const Projects = () => {
         <h1 className='lg:text-7xl font-extrabold text-white tracking-wider' style={{ fontFamily: 'Pattaya' }}>Projects</h1>
       </div>
       {
-        projects.map((d, idx) => <div key={idx} className='lg:w-[900px] mx-auto mb-16 w-64'>
+        projects.slice(0, 5).map((d, idx) =>
+          <div key={idx} className='lg:w-[900px] mx-auto mb-16 w-64'>
           <h1 className='text-white text-left'>
             <span className='text-[#79CFFF] pr-2'><PlayArrowIcon /></span>
-            {d["name"]}
+            <a href={d["html_url"]} target="_blank" rel='noopener noreferrer'>{d["name"]}</a>
             <span className='pl-6 '><TbGitFork className='inline mr-2' /></span>
             <span className='font-bold'>{d["forks"]}</span>
             <span className='pl-6'><AiFillStar className='inline mr-2' /></span>

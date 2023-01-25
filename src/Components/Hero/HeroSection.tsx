@@ -12,7 +12,7 @@ const HeroSection = () => {
         </div>
         <div className='text-2xl sm:mt-10 lg:w-full sm:w-96 w-64 sm:text-justify'>
           <h1 className='text-white lg:text-6xl font-extrabold sm:tracking-wider lg:tracking-wider sm:text-3xl sm:mb-10' style={{ fontFamily: 'Pattaya' }}>Hi there !</h1>
-          <p className='text-[16px] text-white lg:mt-10 sm:text-[18px] text-justify'>{Info.description}</p>
+          <p className='text-[16px] text-white lg:mt-10 sm:text-[18px] text-justify'>I’m Rakibul Yeasin.<br/>{Info.description}</p>
         </div>
       </div>
     </section >
