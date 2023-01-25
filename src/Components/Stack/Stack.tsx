@@ -11,7 +11,7 @@ const Stack = () => {
         <div className='lg:pl-[132px] w-64 lg:w-full text-justify mx-auto md:w-96'>
           <p className='text-white'>{Info.stackDescription}</p>
         </div>
-        <div className='mt-20 lg:grid lg:grid-cols-3 lg:justify-items-center flex justify-center gap-1 md:gap-16'>
+        <div className='mt-10 lg:grid lg:grid-cols-3 lg:justify-items-center flex justify-center gap-1 md:gap-16'>
           <div className=''>
             <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiGoland className='inline mr-1' /></span> Go</p>
             <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiPython className='inline mr-1' /></span> Python</p>
@@ -25,11 +25,11 @@ const Stack = () => {
           <div className=''>
             <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiCplusplus className='inline mr-1' /></span> C/C++</p>
             <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><VscTerminalPowershell className='inline mr-1' /></span> Bash/Shell</p>
-            <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiJavascript className='inline mr-1' /></span> JavaScript</p>
+            {/* <p className='text-white py-2 text-sm lg:text-md lg:text-left'> <span className='text-[#79CFFF]'><SiJavascript className='inline mr-1' /></span> JavaScript</p> */}
           </div>
         </div>
       </div>
-      <div className='hidden lg:block lg:absolute lg:-right-16 lg:col-span-1 lg:top-80'>
+      <div className='hidden lg:block lg:absolute lg:-right-16 lg:col-span-1 lg:top-60'>
         <h1 style={{ fontFamily: 'Pattaya' }} className='lg:text-7xl lg:tracking-wider text-white rotate-[90deg] font-extrabold'>MY Stack</h1>
       </div>
     </section>
