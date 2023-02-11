@@ -132,7 +132,7 @@ const Header = () => {
                             <Button
                                 key={idx}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block', textDecoration: { xs: 'none', md: 'none', lg: 'underline' }, "&:hover": { textDecoration: { xs: 'none', md: 'none', lg: 'underline' }, backgroundColor: 'transparent' } }}
+                                sx={{ my: 2, color: 'white', display: 'block', "&:hover": { textDecoration: { xs: 'none', md: 'none', lg: 'underline' }, backgroundColor: 'transparent' } }}
                             >
                                 <Link className='underlie' to={page.route}>{page.title}</Link>
                             </Button>
