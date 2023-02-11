@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import { TbGitFork } from "react-icons/tb";
+import React from 'react';
 import { AiFillStar } from "react-icons/ai";
-import { IoLogoHtml5, IoLogoPython } from "react-icons/io";
-import { SiGoland, SiJavascript, SiDart, SiTypescript, SiDocker, SiGithub } from "react-icons/si";
-import { VscTerminalPowershell } from "react-icons/vsc";
 import { BiRightArrowAlt } from "react-icons/bi";
-import './Porjects.css';
+import { IoLogoHtml5, IoLogoPython } from "react-icons/io";
+import { SiDart, SiDocker, SiGithub, SiGoland, SiJavascript, SiTypescript } from "react-icons/si";
+import { TbGitFork } from "react-icons/tb";
+import { VscTerminalPowershell } from "react-icons/vsc";
 import { useNavigate } from 'react-router-dom';
+import { useGlobalCtx } from '../Context/GlobalCtx/GlobalProvider';
+import Spinner from '../Shared/Spinner/Spinner';
+import './Porjects.css';
 
 const icons = {
   'python': <IoLogoPython className='inline' />,
@@ -22,12 +24,7 @@ const icons = {
 
 const Projects = () => {
   const navigate = useNavigate();
-  const [projects, setProjects] = useState([Object]);
-  useEffect(() => {
-    fetch('https://api.github.com/users/dreygur/repos')
-      .then(response => response.json())
-      .then(res => setProjects(res))
-  }, []);
+  const { projects, isLoading } = useGlobalCtx();
 
   return (
     <section>
@@ -37,7 +34,7 @@ const Projects = () => {
         </div>
         <div className='mt-20'>
           {
-            projects.slice(0, 5).map((d, idx) => <div key={idx} className='lg:w-[900px] mx-auto mb-16 w-64'>
+            isLoading ? <Spinner /> : projects.slice(0, 5).map((d, idx) => <div key={idx} className='lg:w-[900px] mx-auto mb-16 w-64'>
               <h1 className='text-white text-left'>
                 <span className='text-[#79CFFF] pr-2'><PlayArrowIcon /></span>
                 {d["name"]}
@@ -53,11 +50,14 @@ const Projects = () => {
           }
         </div>
       </div>
+      {isLoading && <Spinner />}
       <div>
-        <button onClick={() => navigate('/projects')} className="cta">
-          <span>See More</span>
-          <BiRightArrowAlt className='inline' />
-        </button>
+        {
+          <button onClick={() => navigate('/projects')} className="cta">
+            <span>See More</span>
+            <BiRightArrowAlt className='inline' />
+          </button>
+        }
       </div>
     </section>
   );

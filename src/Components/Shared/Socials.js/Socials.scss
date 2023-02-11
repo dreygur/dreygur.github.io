@@ -1,0 +1,84 @@
+  $button-height: 30px;
+  $box-width: 1px;
+  $box-height: 212px;
+
+  .share-buttons {
+      width: $box-width;
+      height: $box-height;
+      padding-left: ($box-width / 2) - ($button-height / 2);
+
+      .share-button {
+          float: left;
+          margin-top: 22px;
+
+          &:first-child {
+              margin-top: 0;
+          }
+
+          &:after {
+              clear: both;
+              display: table;
+          }
+      }
+  }
+
+  .share-button {
+      display: block;
+      position: relative;
+      height: $button-height;
+
+      &:hover {
+          cursor: pointer;
+
+          .share-button-primary {
+              box-shadow: 1px 0 0 0 rgba(0, 0, 0, .1);
+          }
+
+          .share-button-secondary-content {
+              transform: translate3d(0, 0, 0);
+          }
+      }
+  }
+
+  .share-button-primary {
+      position: absolute;
+      background: white;
+      width: $button-height;
+      height: $button-height;
+      border-radius: ($button-height / 2);
+      left: 0;
+      top: 50%;
+      margin-top: -($button-height / 2);
+  }
+
+  .share-button-icon {
+      display: block;
+      color: #242424;
+      position: absolute;
+      width: $button-height;
+      line-height: $button-height;
+      font-size: 16px;
+      margin-top: 1px;
+  }
+
+  .share-button-secondary {
+      overflow: hidden;
+      margin-left: ($button-height / 2);
+      height: $button-height;
+  }
+
+  .share-button-secondary-content {
+      font-family: sans-serif;
+      font-size: .75em;
+      background: #fff;
+      display: block;
+      height: $button-height;
+      text-align: left;
+      padding-left: ($button-height * .8);
+      padding-right: ($button-height * .6);
+      line-height: $button-height;
+      color: #242424;
+      border-radius: 0 ($button-height / 2) ($button-height / 2) 0;
+      transform: translate3d(-100%, 0, 0);
+      transition: transform 175ms ease;
+  }

@@ -9,6 +9,7 @@ import { SiDart, SiDocker, SiGithub, SiGoland, SiJavascript, SiTypescript } from
 import { TbGitFork } from "react-icons/tb";
 import { VscTerminalPowershell } from "react-icons/vsc";
 import { useGlobalCtx } from '../../../Context/GlobalCtx/GlobalProvider';
+import Spinner from '../../../Shared/Spinner/Spinner';
 
 
 
@@ -25,42 +26,23 @@ const icons = {
 
 
 const AllProjects = () => {
-    const { projects, pageCount } = useGlobalCtx();
+    const { projects, pageCount, isLoading } = useGlobalCtx();
     const [page, setPage] = useState(1);
-    const [initial, setInitial] = useState(1);
     const [firstIdx, setFirstIdx] = useState(0);
     const [lastIdx, setLastIdx] = useState(10);
     const [loading, setLoading] = useState(false);
 
 
-
     useEffect(() => {
-        (async () => {
-            try {
-                handlePageData(initial);
-            }
-            catch (err) { console.log(err) }
-        })();
-
-    }, [loading]);
-
-
-    const handlePageData = (value) => {
-        if (page > 0 && value > page) {
-            setLastIdx(lastIdx + 10);
-            setFirstIdx(firstIdx + 10);
-        }
-        if (page > 0 && value < page) {
-            setLastIdx(lastIdx - 10);
-            setFirstIdx(firstIdx - 10);
-        }
-    };
+        window.scrollTo(0, 0);
+    }, [page]);
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         try {
             setLoading(true);
             setPage(value);
-            setInitial(value);
+            setFirstIdx((value - 1) * 10);
+            setLastIdx(value * 10);
         }
         catch (err) { console.log(err) }
         finally {
@@ -68,11 +50,13 @@ const AllProjects = () => {
         }
     };
 
+
     return (
         <section className='container mx-auto mt-40 relative'>
             <div className='rotate-[270deg] absolute sm:hidden md:hidden lg:block hidden top-48'>
                 <h1 className='lg:text-7xl font-extrabold text-white tracking-wider' style={{ fontFamily: 'Pattaya' }}>Projects</h1>
             </div>
+            {(loading || isLoading) && <Spinner />}
             {
                 projects.slice(firstIdx, lastIdx).map((d: any, idx: any) => <div key={idx} className='lg:w-[900px] mx-auto mb-16 w-64'>
                     <h1 className='text-white text-left'>
@@ -90,7 +74,7 @@ const AllProjects = () => {
             }
             <div className="flex justify-center mt-28">
                 <Stack spacing={2}>
-                    <Pagination count={pageCount} page={page} onChange={handleChange} />
+                    <Pagination count={pageCount} variant='outlined' color='primary' page={page} onChange={handleChange} />
                 </Stack>
             </div>
         </section>
