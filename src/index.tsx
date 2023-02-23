@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import ToastProvider from './Components/Context/ToastCtx/ToastProvider';
+import GlobalProvider from './Components/Context/GlobalCtx/GlobalProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,9 +13,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <React.StrictMode>
-      <ToastProvider>
-        <App />
-      </ToastProvider>
+      <GlobalProvider>
+        <ToastProvider>
+          <App />
+        </ToastProvider>
+      </GlobalProvider>
     </React.StrictMode>
   </BrowserRouter>
 );

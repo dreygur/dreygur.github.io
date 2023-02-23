@@ -1,0 +1,38 @@
+aside {
+    display: block;
+    position: relative;
+}
+
+aside h1 {
+    position: absolute;
+    top: 51%;
+    left: 0;
+    background: none;
+    transform-origin: 0 0;
+    transform: rotate(270deg);
+}
+
+.contact-container {
+    width: 60%;
+    display: grid;
+    margin: auto;
+    grid-template-columns: 0.6fr 0.7fr 4fr;
+    justify-content: center;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .contact-container {
+        width: 100%;
+        grid-template-columns: 0.3fr 3fr;
+    }
+}
+
+
+@media screen and (min-width: 768px) and (max-width:1023px) {
+    .contact-container {
+        width: 100%;
+        grid-template-columns: 0.3fr 3fr;
+    }
+}
