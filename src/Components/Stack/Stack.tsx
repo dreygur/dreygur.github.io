@@ -10,7 +10,7 @@ const Stack = () => {
       <div className='container lg:relative  mx-auto  lg:grid lg:grid-cols-5 lg:justify-items-center'>
         <div className=' mx-auto mt-40 lg:col-span-4'>
           <div className='lg:pl-[132px] w-64 lg:w-full text-justify mx-auto md:w-96'>
-            <p className='text-white'>{Info.stackDescription}</p>o
+            <p className='text-white'>{Info.stackDescription}</p>
           </div>
           <div className='mt-20 lg:grid lg:grid-cols-3 lg:justify-items-center flex justify-center gap-1 md:gap-16'>
             <div className=''>
