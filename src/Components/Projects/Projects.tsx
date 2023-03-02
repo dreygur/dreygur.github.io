@@ -11,8 +11,6 @@ import { useGlobalCtx } from '../Context/GlobalCtx/GlobalProvider';
 import Spinner from '../Shared/Spinner/Spinner';
 import './Porjects.css';
 
-// Projects from Static file
-import projects from '../../assets/projects.json';
 
 const icons = {
   'python': <IoLogoPython className='inline' />,
