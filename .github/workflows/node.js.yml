@@ -1,10 +1,6 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -25,4 +21,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
+    - run: git config --global user.email "ryeasin03@gmail.com" && git config --global user.name "Rakibul Yeasin"
     - run: CI=false npm run deploy
