@@ -1,0 +1,14 @@
+[package]
+name = "yew-app"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# yew = { git = "https://github.com/yewstack/yew/", features = ["csr"] }
+yew = { version = "0.21.0", features = ["csr"] }
+chrono = "0.4.38"
+yew_icons = { version = "0.8", features = [
+    "BootstrapGithub",
+    "BootstrapTwitter",
+    "BootstrapLinkedin",
+] }
