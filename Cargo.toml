@@ -6,9 +6,11 @@ edition = "2021"
 [dependencies]
 # yew = { git = "https://github.com/yewstack/yew/", features = ["csr"] }
 yew = { version = "0.21.0", features = ["csr"] }
+yew-router = "0.18.0"
 chrono = "0.4.38"
 yew_icons = { version = "0.8", features = [
     "BootstrapGithub",
     "BootstrapTwitter",
     "BootstrapLinkedin",
+    "LucideMenu",
 ] }

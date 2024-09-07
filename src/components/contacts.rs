@@ -1,12 +1,12 @@
 use yew::prelude::*;
 
 #[function_component]
-pub fn Header() -> Html {
+pub fn Contacts() -> Html {
     html! {
-        <div class={classes!(String::from("flex justify-between items-center"))}>
-            <div class={classes!(String::from("text-primary"))}>
-                {"Rakib"}
-            </div>
+        <div class={classes!(String::from("flex justify-end items-center"))}>
+            // <div class={classes!(String::from("text-primary"))}>
+            //     {"Rakib"}
+            // </div>
             <ul class={classes!(String::from("flex gap-12 items-center"))}>
                 <li class={classes!(String::from("hover:underline underline-offset-8 cursor-pointer"))}>{"About Me"}</li>
                 <li class={classes!(String::from("hover:underline underline-offset-8 cursor-pointer"))}>{"Projects"}</li>
