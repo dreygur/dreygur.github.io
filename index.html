@@ -8,8 +8,9 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 
         * {
             margin: 0;
@@ -18,7 +19,7 @@
         }
 
         body {
-            font-family: 'Roboto Mono', monospace;
+            font-family: 'Orbitron', monospace;
             background: #000;
             color: #d97706;
             overflow-x: hidden;
@@ -175,7 +176,7 @@
             const [userData, setUserData] = useState(null);
             const [repos, setRepos] = useState([]);
             const [skills, setSkills] = useState({});
-            const [activeTab, setActiveTab] = useState('projects');
+            const [activeTab, setActiveTab] = useState('blog');
             const [blogPosts, setBlogPosts] = useState([]);
             const [loading, setLoading] = useState(true);
 
@@ -183,6 +184,13 @@
                 fetchGitHubData();
                 fetchBlogPosts();
             }, []);
+
+            useEffect(() => {
+                // Initialize Lucide icons after render
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            });
 
             const fetchGitHubData = async () => {
                 try {
@@ -291,9 +299,18 @@
                                     </h1>
                                     <p className="text-lg md:text-xl mb-4 break-words">{userData?.bio}</p>
                                     <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm md:text-base">
-                                        <span>📍 {userData?.location || 'Unknown'}</span>
-                                        <span>📦 {userData?.public_repos} REPOS</span>
-                                        <span>👥 {userData?.followers} FOLLOWERS</span>
+                                        <span className="flex items-center gap-2">
+                                            <i data-lucide="map-pin" className="w-4 h-4"></i>
+                                            {userData?.location || 'Unknown'}
+                                        </span>
+                                        <span className="flex items-center gap-2">
+                                            <i data-lucide="package" className="w-4 h-4"></i>
+                                            {userData?.public_repos} REPOS
+                                        </span>
+                                        <span className="flex items-center gap-2">
+                                            <i data-lucide="users" className="w-4 h-4"></i>
+                                            {userData?.followers} FOLLOWERS
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -301,19 +318,19 @@
 
                         {/* Tab Navigation */}
                         <div className="flex flex-wrap gap-2 md:gap-4 mb-8">
-                            {['projects', 'skills', 'blog', 'experience'].map(tab => (
+                            {['blog', 'projects', 'skills', 'experience'].map(tab => (
                                 <button
                                     key={tab}
                                     onClick={() => setActiveTab(tab)}
-                                    className={`sharp-button px-4 md:px-6 py-2 md:py-3 uppercase-tracked font-bold text-sm md:text-base flex-1 md:flex-none ${
+                                    className={`sharp-button px-4 md:px-6 py-2 md:py-3 uppercase-tracked font-bold text-sm md:text-base flex-1 md:flex-none flex items-center justify-center gap-2 ${
                                         activeTab === tab ? 'tab-active' : ''
                                     }`}
                                 >
-                                    {tab === 'projects' && '💼'}
-                                    {tab === 'skills' && '⚡'}
-                                    {tab === 'blog' && '📝'}
-                                    {tab === 'experience' && '🎯'}
-                                    {' ' + tab}
+                                    {tab === 'blog' && <i data-lucide="file-text" className="w-4 h-4"></i>}
+                                    {tab === 'projects' && <i data-lucide="briefcase" className="w-4 h-4"></i>}
+                                    {tab === 'skills' && <i data-lucide="zap" className="w-4 h-4"></i>}
+                                    {tab === 'experience' && <i data-lucide="target" className="w-4 h-4"></i>}
+                                    {tab}
                                 </button>
                             ))}
                         </div>
@@ -340,15 +357,21 @@
                                             )}
                                         </div>
                                         <div className="flex flex-wrap gap-4 text-xs md:text-sm">
-                                            <span>⭐ {repo.stargazers_count}</span>
-                                            <span>🔀 {repo.forks_count}</span>
+                                            <span className="flex items-center gap-1">
+                                                <i data-lucide="star" className="w-3 h-3"></i>
+                                                {repo.stargazers_count}
+                                            </span>
+                                            <span className="flex items-center gap-1">
+                                                <i data-lucide="git-fork" className="w-3 h-3"></i>
+                                                {repo.forks_count}
+                                            </span>
                                             <a
                                                 href={repo.html_url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="ml-auto hover:underline"
+                                                className="ml-auto hover:underline flex items-center gap-1"
                                             >
-                                                VIEW →
+                                                VIEW <i data-lucide="external-link" className="w-3 h-3"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -394,17 +417,20 @@
                                             <p className="text-sm md:text-base mb-4 break-words">{post.excerpt}</p>
                                             <a
                                                 href={post.url}
-                                                className="sharp-button px-4 md:px-6 py-2 inline-block uppercase-tracked text-sm md:text-base"
+                                                className="sharp-button px-4 md:px-6 py-2 inline-flex items-center gap-2 uppercase-tracked text-sm md:text-base"
                                             >
-                                                READ MORE →
+                                                READ MORE <i data-lucide="arrow-right" className="w-4 h-4"></i>
                                             </a>
                                         </div>
                                     ))
                                 ) : (
                                     <div className="sharp-border p-8 md:p-12 text-center">
-                                        <p className="text-xl md:text-2xl uppercase-tracked opacity-50">
-                                            📝 NO BLOG POSTS YET
-                                        </p>
+                                        <div className="flex items-center justify-center gap-3 mb-4">
+                                            <i data-lucide="file-text" className="w-8 h-8 opacity-50"></i>
+                                            <p className="text-xl md:text-2xl uppercase-tracked opacity-50">
+                                                NO BLOG POSTS YET
+                                            </p>
+                                        </div>
                                         <p className="text-sm md:text-base mt-4 opacity-40">
                                             Add posts to _posts/ or api/posts.json
                                         </p>
@@ -416,9 +442,12 @@
                         {/* Experience Tab */}
                         {activeTab === 'experience' && (
                             <div className="sharp-border p-6 md:p-12 text-center">
-                                <p className="text-xl md:text-2xl uppercase-tracked opacity-50">
-                                    🎯 EXPERIENCE SECTION
-                                </p>
+                                <div className="flex items-center justify-center gap-3 mb-4">
+                                    <i data-lucide="target" className="w-8 h-8 opacity-50"></i>
+                                    <p className="text-xl md:text-2xl uppercase-tracked opacity-50">
+                                        EXPERIENCE SECTION
+                                    </p>
+                                </div>
                                 <p className="text-sm md:text-base mt-4 opacity-40 break-words">
                                     Based on {repos.length} public repositories and {userData?.followers} followers
                                 </p>
@@ -442,14 +471,16 @@
 
                     {/* Footer */}
                     <footer className="max-w-6xl mx-auto mt-12 md:mt-16 text-center py-6 md:py-8 sharp-border">
-                        <p className="uppercase-tracked text-sm md:text-base">
-                            💻 BUILT WITH REACT + TAILWIND |
+                        <p className="uppercase-tracked text-sm md:text-base flex items-center justify-center gap-2 flex-wrap">
+                            <i data-lucide="code" className="w-4 h-4"></i>
+                            BUILT WITH REACT + TAILWIND |
                             <a
                                 href={`https://github.com/${GITHUB_USERNAME}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="ml-2 hover:underline"
+                                className="ml-2 hover:underline flex items-center gap-1"
                             >
+                                <i data-lucide="github" className="w-4 h-4"></i>
                                 @{GITHUB_USERNAME}
                             </a>
                         </p>
