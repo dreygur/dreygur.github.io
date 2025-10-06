@@ -158,6 +158,37 @@
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
+
+        /* Pinterest-style masonry layout */
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .masonry-grid {
+                column-count: 2;
+                column-gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .masonry-grid {
+                column-count: 3;
+                column-gap: 1.5rem;
+            }
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .masonry-item {
+                margin-bottom: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -340,9 +371,9 @@
                     <main className="max-w-6xl mx-auto">
                         {/* Projects Tab */}
                         {activeTab === 'projects' && (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                            <div className="masonry-grid">
                                 {repos.map(repo => (
-                                    <div key={repo.id} className="sharp-border p-4 md:p-6 hover:bg-opacity-10 hover:bg-amber-600 transition-all">
+                                    <div key={repo.id} className="masonry-item sharp-border p-4 md:p-6 hover:bg-opacity-10 hover:bg-amber-600 transition-all">
                                         <h3 className="text-lg md:text-xl font-bold uppercase-tracked mb-3 break-words">
                                             {repo.name}
                                         </h3>
