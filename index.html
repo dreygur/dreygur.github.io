@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - dreygur</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background: #000;
+            color: #d97706;
+            overflow-x: hidden;
+        }
+
+        /* Animated Grid Background */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image:
+                linear-gradient(to right, rgba(217, 119, 6, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(217, 119, 6, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(40px, 40px);
+            }
+        }
+
+        /* Diagonal Lines Overlay */
+        .diagonal-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 60px,
+                rgba(217, 119, 6, 0.03) 60px,
+                rgba(217, 119, 6, 0.03) 61px
+            );
+            pointer-events: none;
+        }
+
+        /* Gradient Overlay */
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.05), transparent 70%);
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Sharp edges - no rounded corners */
+        .sharp-border {
+            border: 2px solid #d97706;
+            border-radius: 0;
+        }
+
+        .sharp-button {
+            border: 2px solid #d97706;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .sharp-button:hover {
+            background: #d97706;
+            color: #000;
+        }
+
+        /* Text styles */
+        .uppercase-tracked {
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* Tab navigation */
+        .tab-active {
+            background: #d97706;
+            color: #000;
+        }
+
+        /* Glitch effect for title */
+        @keyframes glitch {
+            0% {
+                text-shadow: 2px 2px #d97706, -2px -2px #b45309;
+            }
+            25% {
+                text-shadow: -2px -2px #d97706, 2px 2px #b45309;
+            }
+            50% {
+                text-shadow: 2px -2px #d97706, -2px 2px #b45309;
+            }
+            75% {
+                text-shadow: -2px 2px #d97706, 2px -2px #b45309;
+            }
+            100% {
+                text-shadow: 2px 2px #d97706, -2px -2px #b45309;
+            }
+        }
+
+        .glitch-text {
+            animation: glitch 3s infinite;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b45309;
+        }
+
+        /* Word wrap for all text */
+        p, span, div, a, li, h1, h2, h3, h4, h5, h6 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="diagonal-lines"></div>
+    <div class="gradient-overlay"></div>
+
+    <div id="root" class="content-wrapper"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const GITHUB_USERNAME = 'dreygur';
+
+        function Portfolio() {
+            const [userData, setUserData] = useState(null);
+            const [repos, setRepos] = useState([]);
+            const [skills, setSkills] = useState({});
+            const [activeTab, setActiveTab] = useState('projects');
+            const [blogPosts, setBlogPosts] = useState([]);
+            const [loading, setLoading] = useState(true);
+
+            useEffect(() => {
+                fetchGitHubData();
+                fetchBlogPosts();
+            }, []);
+
+            const fetchGitHubData = async () => {
+                try {
+                    // Fetch user data
+                    const userRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
+                    const user = await userRes.json();
+                    setUserData(user);
+
+                    // Fetch repositories
+                    const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=stars`);
+                    const allRepos = await reposRes.json();
+
+                    // Sort by stars and get top 12
+                    const topRepos = allRepos
+                        .filter(repo => !repo.fork)
+                        .sort((a, b) => b.stargazers_count - a.stargazers_count)
+                        .slice(0, 12);
+
+                    setRepos(topRepos);
+
+                    // Extract skills from languages and topics
+                    const skillsMap = {
+                        'Front-End Development': new Set(),
+                        'Back-End Development': new Set(),
+                        'Tools & Automation': new Set(),
+                        'Cloud & DevOps': new Set()
+                    };
+
+                    const frontEndTech = ['javascript', 'typescript', 'react', 'vue', 'angular', 'html', 'css', 'sass', 'tailwind', 'next.js', 'svelte'];
+                    const backEndTech = ['python', 'node.js', 'go', 'rust', 'java', 'c++', 'c#', 'php', 'ruby', 'django', 'flask', 'express', 'fastapi'];
+                    const toolsTech = ['git', 'webpack', 'vite', 'babel', 'eslint', 'prettier', 'jest', 'testing'];
+                    const cloudTech = ['docker', 'kubernetes', 'aws', 'gcp', 'azure', 'terraform', 'ansible', 'ci/cd', 'github-actions'];
+
+                    for (const repo of allRepos) {
+                        // Add language
+                        if (repo.language) {
+                            const lang = repo.language.toLowerCase();
+                            if (frontEndTech.includes(lang)) skillsMap['Front-End Development'].add(repo.language);
+                            else if (backEndTech.includes(lang)) skillsMap['Back-End Development'].add(repo.language);
+                            else if (toolsTech.includes(lang)) skillsMap['Tools & Automation'].add(repo.language);
+                            else if (cloudTech.includes(lang)) skillsMap['Cloud & DevOps'].add(repo.language);
+                            else skillsMap['Back-End Development'].add(repo.language);
+                        }
+
+                        // Add topics
+                        if (repo.topics) {
+                            repo.topics.forEach(topic => {
+                                const t = topic.toLowerCase();
+                                if (frontEndTech.includes(t)) skillsMap['Front-End Development'].add(topic);
+                                else if (backEndTech.includes(t)) skillsMap['Back-End Development'].add(topic);
+                                else if (toolsTech.includes(t)) skillsMap['Tools & Automation'].add(topic);
+                                else if (cloudTech.includes(t)) skillsMap['Cloud & DevOps'].add(topic);
+                            });
+                        }
+                    }
+
+                    // Convert Sets to Arrays
+                    const finalSkills = {};
+                    Object.keys(skillsMap).forEach(category => {
+                        finalSkills[category] = Array.from(skillsMap[category]);
+                    });
+
+                    setSkills(finalSkills);
+                    setLoading(false);
+                } catch (error) {
+                    console.error('Error fetching GitHub data:', error);
+                    setLoading(false);
+                }
+            };
+
+            const fetchBlogPosts = async () => {
+                try {
+                    const res = await fetch('/api/posts.json');
+                    if (res.ok) {
+                        const posts = await res.json();
+                        setBlogPosts(posts);
+                    }
+                } catch (error) {
+                    // Blog posts are optional
+                    console.log('No blog posts found');
+                }
+            };
+
+            if (loading) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center">
+                        <div className="text-4xl uppercase-tracked glitch-text">LOADING...</div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="min-h-screen p-4 md:p-8">
+                    {/* Header */}
+                    <header className="max-w-6xl mx-auto mb-12">
+                        <div className="sharp-border p-6 md:p-8 mb-8">
+                            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                                <img
+                                    src={userData?.avatar_url}
+                                    alt={userData?.name}
+                                    className="w-32 h-32 md:w-40 md:h-40 sharp-border"
+                                />
+                                <div className="flex-1 text-center md:text-left w-full">
+                                    <h1 className="text-3xl md:text-5xl font-bold uppercase-tracked glitch-text mb-4 break-words">
+                                        {userData?.name || GITHUB_USERNAME}
+                                    </h1>
+                                    <p className="text-lg md:text-xl mb-4 break-words">{userData?.bio}</p>
+                                    <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm md:text-base">
+                                        <span>📍 {userData?.location || 'Unknown'}</span>
+                                        <span>📦 {userData?.public_repos} REPOS</span>
+                                        <span>👥 {userData?.followers} FOLLOWERS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Tab Navigation */}
+                        <div className="flex flex-wrap gap-2 md:gap-4 mb-8">
+                            {['projects', 'skills', 'blog', 'experience'].map(tab => (
+                                <button
+                                    key={tab}
+                                    onClick={() => setActiveTab(tab)}
+                                    className={`sharp-button px-4 md:px-6 py-2 md:py-3 uppercase-tracked font-bold text-sm md:text-base flex-1 md:flex-none ${
+                                        activeTab === tab ? 'tab-active' : ''
+                                    }`}
+                                >
+                                    {tab === 'projects' && '💼'}
+                                    {tab === 'skills' && '⚡'}
+                                    {tab === 'blog' && '📝'}
+                                    {tab === 'experience' && '🎯'}
+                                    {' ' + tab}
+                                </button>
+                            ))}
+                        </div>
+                    </header>
+
+                    {/* Main Content */}
+                    <main className="max-w-6xl mx-auto">
+                        {/* Projects Tab */}
+                        {activeTab === 'projects' && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                                {repos.map(repo => (
+                                    <div key={repo.id} className="sharp-border p-4 md:p-6 hover:bg-opacity-10 hover:bg-amber-600 transition-all">
+                                        <h3 className="text-lg md:text-xl font-bold uppercase-tracked mb-3 break-words">
+                                            {repo.name}
+                                        </h3>
+                                        <p className="text-sm md:text-base mb-4 opacity-80 break-words">
+                                            {repo.description || 'No description available'}
+                                        </p>
+                                        <div className="flex flex-wrap gap-2 mb-4">
+                                            {repo.language && (
+                                                <span className="text-xs md:text-sm sharp-border px-2 py-1">
+                                                    {repo.language}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="flex flex-wrap gap-4 text-xs md:text-sm">
+                                            <span>⭐ {repo.stargazers_count}</span>
+                                            <span>🔀 {repo.forks_count}</span>
+                                            <a
+                                                href={repo.html_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="ml-auto hover:underline"
+                                            >
+                                                VIEW →
+                                            </a>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Skills Tab */}
+                        {activeTab === 'skills' && (
+                            <div className="space-y-6 md:space-y-8">
+                                {Object.entries(skills).map(([category, items]) => (
+                                    items.length > 0 && (
+                                        <div key={category} className="sharp-border p-4 md:p-6">
+                                            <h3 className="text-xl md:text-2xl font-bold uppercase-tracked mb-4 break-words">
+                                                {category}
+                                            </h3>
+                                            <div className="flex flex-wrap gap-2 md:gap-3">
+                                                {items.map((skill, idx) => (
+                                                    <span
+                                                        key={idx}
+                                                        className="sharp-border px-3 md:px-4 py-1 md:py-2 text-sm md:text-base uppercase break-words"
+                                                    >
+                                                        {skill}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Blog Tab */}
+                        {activeTab === 'blog' && (
+                            <div className="space-y-4 md:space-y-6">
+                                {blogPosts.length > 0 ? (
+                                    blogPosts.map((post, idx) => (
+                                        <div key={idx} className="sharp-border p-4 md:p-6">
+                                            <h3 className="text-xl md:text-2xl font-bold uppercase-tracked mb-2 break-words">
+                                                {post.title}
+                                            </h3>
+                                            <p className="text-sm md:text-base opacity-60 mb-3">{post.date}</p>
+                                            <p className="text-sm md:text-base mb-4 break-words">{post.excerpt}</p>
+                                            <a
+                                                href={post.url}
+                                                className="sharp-button px-4 md:px-6 py-2 inline-block uppercase-tracked text-sm md:text-base"
+                                            >
+                                                READ MORE →
+                                            </a>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="sharp-border p-8 md:p-12 text-center">
+                                        <p className="text-xl md:text-2xl uppercase-tracked opacity-50">
+                                            📝 NO BLOG POSTS YET
+                                        </p>
+                                        <p className="text-sm md:text-base mt-4 opacity-40">
+                                            Add posts to _posts/ or api/posts.json
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Experience Tab */}
+                        {activeTab === 'experience' && (
+                            <div className="sharp-border p-6 md:p-12 text-center">
+                                <p className="text-xl md:text-2xl uppercase-tracked opacity-50">
+                                    🎯 EXPERIENCE SECTION
+                                </p>
+                                <p className="text-sm md:text-base mt-4 opacity-40 break-words">
+                                    Based on {repos.length} public repositories and {userData?.followers} followers
+                                </p>
+                                <div className="mt-8 max-w-2xl mx-auto text-left space-y-4">
+                                    <div className="sharp-border p-4">
+                                        <p className="text-base md:text-lg break-words">
+                                            <strong>OPEN SOURCE CONTRIBUTOR</strong><br/>
+                                            {repos.length} public repositories with {repos.reduce((acc, r) => acc + r.stargazers_count, 0)} total stars
+                                        </p>
+                                    </div>
+                                    <div className="sharp-border p-4">
+                                        <p className="text-base md:text-lg break-words">
+                                            <strong>COMMUNITY MEMBER</strong><br/>
+                                            {userData?.followers} followers on GitHub
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="max-w-6xl mx-auto mt-12 md:mt-16 text-center py-6 md:py-8 sharp-border">
+                        <p className="uppercase-tracked text-sm md:text-base">
+                            💻 BUILT WITH REACT + TAILWIND |
+                            <a
+                                href={`https://github.com/${GITHUB_USERNAME}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="ml-2 hover:underline"
+                            >
+                                @{GITHUB_USERNAME}
+                            </a>
+                        </p>
+                    </footer>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<Portfolio />, document.getElementById('root'));
+    </script>
+</body>
+</html>

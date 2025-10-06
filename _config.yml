@@ -1,0 +1,23 @@
+# Jekyll Configuration
+title: Portfolio - dreygur
+description: A retro-tech portfolio with amber/gold theme
+baseurl: ""
+url: "https://dreygur.github.io"
+
+# Build settings
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title/
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/
+
+# Exclude files
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
