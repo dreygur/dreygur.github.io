@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Scalable APIs with Node.js and Express - dreygur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: #000;
+            color: #d97706;
+            overflow-x: hidden;
+        }
+
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image:
+                linear-gradient(to right, rgba(217, 119, 6, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(217, 119, 6, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        .diagonal-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 60px,
+                rgba(217, 119, 6, 0.03) 60px,
+                rgba(217, 119, 6, 0.03) 61px
+            );
+            pointer-events: none;
+        }
+
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.05), transparent 70%);
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        .sharp-border {
+            border: 2px solid #d97706;
+            border-radius: 0;
+        }
+
+        .sharp-button {
+            border: 2px solid #d97706;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .sharp-button:hover {
+            background: #d97706;
+            color: #000;
+        }
+
+        .uppercase-tracked {
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .blog-content {
+            line-height: 1.8;
+        }
+
+        .blog-content h2 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content code {
+            background: rgba(217, 119, 6, 0.1);
+            padding: 0.2rem 0.4rem;
+            border: 1px solid #d97706;
+        }
+
+        .blog-content pre {
+            background: rgba(217, 119, 6, 0.05);
+            border: 2px solid #d97706;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .blog-image {
+            filter: sepia(40%) saturate(200%) hue-rotate(10deg) brightness(0.9);
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="diagonal-lines"></div>
+    <div class="gradient-overlay"></div>
+
+    <div class="content-wrapper min-h-screen p-4 md:p-8">
+        <article class="max-w-4xl mx-auto">
+            <!-- Back Button -->
+            <a href="../index.html" class="sharp-button px-4 py-2 inline-flex items-center gap-2 mb-8 hover:no-underline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                BACK TO HOME
+            </a>
+
+            <!-- Header -->
+            <header class="sharp-border p-6 md:p-8 mb-8">
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="sharp-border px-3 py-1 text-xs">Node.js</span>
+                    <span class="sharp-border px-3 py-1 text-xs">API</span>
+                    <span class="sharp-border px-3 py-1 text-xs">Backend</span>
+                    <span class="sharp-border px-3 py-1 text-xs">Performance</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold uppercase-tracked mb-4">
+                    Building Scalable APIs with Node.js and Express
+                </h1>
+                <div class="flex items-center gap-4 text-sm opacity-60">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        October 5, 2025
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="clock" class="w-4 h-4"></i>
+                        8 min read
+                    </span>
+                </div>
+            </header>
+
+            <!-- Featured Image -->
+            <div class="sharp-border mb-8 overflow-hidden">
+                <img
+                    src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=600&fit=crop"
+                    alt="Building Scalable APIs"
+                    class="w-full h-auto blog-image"
+                />
+            </div>
+
+            <!-- Content -->
+            <div class="sharp-border p-6 md:p-8 blog-content">
+                <p>
+                    Building scalable APIs is one of the most critical skills for backend developers. In this comprehensive guide,
+                    we'll explore how to create production-ready REST APIs using Node.js and Express that can handle millions of requests.
+                </p>
+
+                <h2>Why Node.js for APIs?</h2>
+                <p>
+                    Node.js has become the go-to choice for building APIs due to its non-blocking I/O model and event-driven architecture.
+                    This makes it perfect for handling concurrent requests efficiently. Companies like Netflix, LinkedIn, and PayPal have
+                    successfully migrated to Node.js, seeing significant performance improvements.
+                </p>
+
+                <h2>Essential Patterns for Scalability</h2>
+                <p>
+                    When building scalable APIs, you need to consider several key patterns:
+                </p>
+                <pre><code>// Example: Rate Limiting Middleware
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+
+app.use('/api/', limiter);</code></pre>
+
+                <h2>Caching Strategies</h2>
+                <p>
+                    Implementing proper caching can dramatically reduce your database load and improve response times.
+                    Use Redis for session storage and frequently accessed data. Consider CDN caching for static assets
+                    and API responses that don't change frequently.
+                </p>
+
+                <h2>Database Optimization</h2>
+                <p>
+                    Your database is often the bottleneck. Use connection pooling, implement proper indexing, and consider
+                    read replicas for heavy read operations. For write-heavy applications, look into sharding strategies.
+                </p>
+
+                <pre><code>// Example: Connection Pooling with PostgreSQL
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
+});
+
+module.exports = {
+  query: (text, params) => pool.query(text, params)
+};</code></pre>
+
+                <h2>Monitoring and Logging</h2>
+                <p>
+                    You can't improve what you don't measure. Implement comprehensive logging with structured formats,
+                    use APM tools like New Relic or DataDog, and set up alerts for critical metrics like response time
+                    and error rates.
+                </p>
+
+                <h2>Conclusion</h2>
+                <p>
+                    Building scalable APIs is an iterative process. Start with solid foundations, measure everything,
+                    and optimize based on real-world data. The patterns covered here will help you build APIs that
+                    can grow with your application's needs.
+                </p>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 mb-8">
+                <a href="../index.html" class="sharp-button px-6 py-3 inline-flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    BACK TO HOME
+                </a>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

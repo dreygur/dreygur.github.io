@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker & Kubernetes Guide - dreygur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Orbitron', monospace; background: #000; color: #d97706; overflow-x: hidden; }
+        .grid-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background-image: linear-gradient(to right, rgba(217, 119, 6, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(217, 119, 6, 0.1) 1px, transparent 1px); background-size: 40px 40px; animation: gridMove 20s linear infinite; }
+        @keyframes gridMove { 0% { transform: translate(0, 0); } 100% { transform: translate(40px, 40px); } }
+        .diagonal-lines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background-image: repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(217, 119, 6, 0.03) 60px, rgba(217, 119, 6, 0.03) 61px); pointer-events: none; }
+        .gradient-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.05), transparent 70%); pointer-events: none; }
+        .content-wrapper { position: relative; z-index: 10; }
+        .sharp-border { border: 2px solid #d97706; border-radius: 0; }
+        .sharp-button { border: 2px solid #d97706; border-radius: 0; transition: all 0.3s ease; }
+        .sharp-button:hover { background: #d97706; color: #000; }
+        .uppercase-tracked { text-transform: uppercase; letter-spacing: 0.15em; }
+        .blog-content { line-height: 1.8; }
+        .blog-content h2 { margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; }
+        .blog-content p { margin-bottom: 1.5rem; }
+        .blog-content code { background: rgba(217, 119, 6, 0.1); padding: 0.2rem 0.4rem; border: 1px solid #d97706; }
+        .blog-content pre { background: rgba(217, 119, 6, 0.05); border: 2px solid #d97706; padding: 1rem; margin: 1.5rem 0; overflow-x: auto; }
+        .blog-image { filter: sepia(40%) saturate(200%) hue-rotate(10deg) brightness(0.9); }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #d97706; }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="diagonal-lines"></div>
+    <div class="gradient-overlay"></div>
+
+    <div class="content-wrapper min-h-screen p-4 md:p-8">
+        <article class="max-w-4xl mx-auto">
+            <a href="../index.html" class="sharp-button px-4 py-2 inline-flex items-center gap-2 mb-8 hover:no-underline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                BACK TO HOME
+            </a>
+
+            <header class="sharp-border p-6 md:p-8 mb-8">
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="sharp-border px-3 py-1 text-xs">Docker</span>
+                    <span class="sharp-border px-3 py-1 text-xs">Kubernetes</span>
+                    <span class="sharp-border px-3 py-1 text-xs">DevOps</span>
+                    <span class="sharp-border px-3 py-1 text-xs">Containers</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold uppercase-tracked mb-4">
+                    Docker & Kubernetes: A Practical Guide for Developers
+                </h1>
+                <div class="flex items-center gap-4 text-sm opacity-60">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        September 15, 2025
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="clock" class="w-4 h-4"></i>
+                        12 min read
+                    </span>
+                </div>
+            </header>
+
+            <div class="sharp-border mb-8 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1200&h=600&fit=crop" alt="Docker & Kubernetes" class="w-full h-auto blog-image" />
+            </div>
+
+            <div class="sharp-border p-6 md:p-8 blog-content">
+                <p>
+                    Containerization has revolutionized how we develop, ship, and run applications. Docker and Kubernetes
+                    have become essential tools in every developer's toolkit. This guide will take you from basics to
+                    production-ready deployments.
+                </p>
+
+                <h2>Understanding Docker Containers</h2>
+                <p>
+                    Containers package your application with all its dependencies, ensuring it runs consistently across
+                    different environments. Unlike virtual machines, containers share the host OS kernel, making them
+                    lightweight and fast to start.
+                </p>
+
+                <pre><code># Basic Dockerfile example
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+EXPOSE 3000
+CMD ["node", "server.js"]</code></pre>
+
+                <h2>Docker Best Practices</h2>
+                <p>
+                    Writing efficient Dockerfiles is crucial for production deployments. Use multi-stage builds to reduce
+                    image size, leverage layer caching, and never run containers as root. Always use specific version tags
+                    instead of <code>latest</code>.
+                </p>
+
+                <h2>Enter Kubernetes</h2>
+                <p>
+                    While Docker runs containers, Kubernetes orchestrates them at scale. It handles deployment, scaling,
+                    self-healing, load balancing, and more. Think of Kubernetes as the operating system for your
+                    containerized applications.
+                </p>
+
+                <pre><code># Simple Kubernetes deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: myapp:1.0
+        ports:
+        - containerPort: 3000</code></pre>
+
+                <h2>Key Kubernetes Concepts</h2>
+                <p>
+                    <strong>Pods:</strong> The smallest deployable unit, usually containing one container.
+                </p>
+                <p>
+                    <strong>Deployments:</strong> Define desired state for your pods. Kubernetes ensures actual state matches desired state.
+                </p>
+                <p>
+                    <strong>Services:</strong> Provide stable networking for pods. Even as pods come and go, services maintain a consistent endpoint.
+                </p>
+                <p>
+                    <strong>ConfigMaps & Secrets:</strong> Manage configuration and sensitive data separately from your application code.
+                </p>
+
+                <h2>Production Readiness</h2>
+                <p>
+                    Moving to production requires additional considerations. Implement health checks with liveness and
+                    readiness probes. Set resource limits to prevent resource starvation. Use Horizontal Pod Autoscaling
+                    to handle traffic spikes. Always have a rollback strategy.
+                </p>
+
+                <h2>Conclusion</h2>
+                <p>
+                    Docker and Kubernetes form the backbone of modern cloud-native applications. While the learning curve
+                    is steep, mastering these tools opens up new possibilities for building resilient, scalable systems.
+                    Start with Docker, understand containers deeply, then gradually adopt Kubernetes as your needs grow.
+                </p>
+            </div>
+
+            <div class="mt-8 mb-8">
+                <a href="../index.html" class="sharp-button px-6 py-3 inline-flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    BACK TO HOME
+                </a>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

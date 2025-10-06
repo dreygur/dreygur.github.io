@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced TypeScript Patterns - dreygur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Orbitron', monospace; background: #000; color: #d97706; overflow-x: hidden; }
+        .grid-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background-image: linear-gradient(to right, rgba(217, 119, 6, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(217, 119, 6, 0.1) 1px, transparent 1px); background-size: 40px 40px; animation: gridMove 20s linear infinite; }
+        @keyframes gridMove { 0% { transform: translate(0, 0); } 100% { transform: translate(40px, 40px); } }
+        .diagonal-lines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background-image: repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(217, 119, 6, 0.03) 60px, rgba(217, 119, 6, 0.03) 61px); pointer-events: none; }
+        .gradient-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.05), transparent 70%); pointer-events: none; }
+        .content-wrapper { position: relative; z-index: 10; }
+        .sharp-border { border: 2px solid #d97706; border-radius: 0; }
+        .sharp-button { border: 2px solid #d97706; border-radius: 0; transition: all 0.3s ease; }
+        .sharp-button:hover { background: #d97706; color: #000; }
+        .uppercase-tracked { text-transform: uppercase; letter-spacing: 0.15em; }
+        .blog-content { line-height: 1.8; }
+        .blog-content h2 { margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; }
+        .blog-content p { margin-bottom: 1.5rem; }
+        .blog-content code { background: rgba(217, 119, 6, 0.1); padding: 0.2rem 0.4rem; border: 1px solid #d97706; font-size: 0.9em; }
+        .blog-content pre { background: rgba(217, 119, 6, 0.05); border: 2px solid #d97706; padding: 1rem; margin: 1.5rem 0; overflow-x: auto; }
+        .blog-image { filter: sepia(40%) saturate(200%) hue-rotate(10deg) brightness(0.9); }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #d97706; }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="diagonal-lines"></div>
+    <div class="gradient-overlay"></div>
+
+    <div class="content-wrapper min-h-screen p-4 md:p-8">
+        <article class="max-w-4xl mx-auto">
+            <a href="../index.html" class="sharp-button px-4 py-2 inline-flex items-center gap-2 mb-8 hover:no-underline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                BACK TO HOME
+            </a>
+
+            <header class="sharp-border p-6 md:p-8 mb-8">
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="sharp-border px-3 py-1 text-xs">TypeScript</span>
+                    <span class="sharp-border px-3 py-1 text-xs">JavaScript</span>
+                    <span class="sharp-border px-3 py-1 text-xs">Programming</span>
+                    <span class="sharp-border px-3 py-1 text-xs">Best Practices</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold uppercase-tracked mb-4">
+                    Advanced TypeScript Patterns You Should Know
+                </h1>
+                <div class="flex items-center gap-4 text-sm opacity-60">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        August 22, 2025
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="clock" class="w-4 h-4"></i>
+                        15 min read
+                    </span>
+                </div>
+            </header>
+
+            <div class="sharp-border mb-8 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=1200&h=600&fit=crop" alt="TypeScript Patterns" class="w-full h-auto blog-image" />
+            </div>
+
+            <div class="sharp-border p-6 md:p-8 blog-content">
+                <p>
+                    TypeScript has evolved from a simple type checker to a powerful type system that rivals dedicated
+                    functional languages. Let's explore advanced patterns that will level up your type-safety game and
+                    make your code more maintainable.
+                </p>
+
+                <h2>Conditional Types</h2>
+                <p>
+                    Conditional types allow you to create types that depend on a condition. They're like the ternary
+                    operator but for types:
+                </p>
+                <pre><code>type IsString&lt;T&gt; = T extends string ? true : false;
+
+type A = IsString&lt;string&gt;;  // true
+type B = IsString&lt;number&gt;;  // false</code></pre>
+
+                <h2>Mapped Types</h2>
+                <p>
+                    Mapped types let you transform existing types by mapping over their properties. This is incredibly
+                    powerful for creating utility types:
+                </p>
+                <pre><code>type ReadOnly&lt;T&gt; = {
+  readonly [P in keyof T]: T[P];
+};
+
+type Optional&lt;T&gt; = {
+  [P in keyof T]?: T[P];
+};</code></pre>
+
+                <h2>Template Literal Types</h2>
+                <p>
+                    Template literal types enable string manipulation at the type level. You can create types based on
+                    string patterns:
+                </p>
+                <pre><code>type EventName&lt;T extends string&gt; = `on${Capitalize&lt;T&gt;}`;
+
+type ClickHandler = EventName&lt;"click"&gt;;  // "onClick"
+type MouseMoveHandler = EventName&lt;"mouseMove"&gt;;  // "onMouseMove"</code></pre>
+
+                <h2>Discriminated Unions</h2>
+                <p>
+                    Use discriminated unions to model complex state machines and ensure exhaustive checking:
+                </p>
+                <pre><code>type LoadingState =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'success'; data: any }
+  | { status: 'error'; error: Error };
+
+function handleState(state: LoadingState) {
+  switch (state.status) {
+    case 'idle': return 'Not started';
+    case 'loading': return 'Loading...';
+    case 'success': return state.data;
+    case 'error': return state.error.message;
+  }
+}</code></pre>
+
+                <h2>Generic Constraints</h2>
+                <p>
+                    Constrain your generics to ensure they have specific properties or extend certain types:
+                </p>
+                <pre><code>function getProperty&lt;T, K extends keyof T&gt;(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+const person = { name: 'John', age: 30 };
+const name = getProperty(person, 'name');  // string
+const age = getProperty(person, 'age');    // number</code></pre>
+
+                <h2>Conclusion</h2>
+                <p>
+                    These advanced TypeScript patterns might seem complex at first, but they unlock powerful capabilities
+                    for creating type-safe, maintainable code. Practice with small examples, gradually incorporating them
+                    into your projects. Your future self (and your teammates) will thank you.
+                </p>
+            </div>
+
+            <div class="mt-8 mb-8">
+                <a href="../index.html" class="sharp-button px-6 py-3 inline-flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    BACK TO HOME
+                </a>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
