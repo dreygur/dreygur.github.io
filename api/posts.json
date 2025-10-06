@@ -1,46 +1,46 @@
 [
   {
-    "id": "building-scalable-apis",
+    "id": "2025-10-05-building-scalable-apis",
     "title": "Building Scalable APIs with Node.js and Express",
     "date": "2025-10-05",
     "excerpt": "Learn how to build production-ready REST APIs that can handle millions of requests. We'll explore best practices, caching strategies, and performance optimization.",
-    "url": "blog/building-scalable-apis.html",
+    "url": "blog/post.html?id=2025-10-05-building-scalable-apis",
     "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop",
     "tags": ["Node.js", "API", "Backend", "Performance"]
   },
   {
-    "id": "modern-frontend-architecture",
+    "id": "2025-09-28-modern-frontend-architecture",
     "title": "Modern Frontend Architecture: From Monoliths to Micro-Frontends",
     "date": "2025-09-28",
     "excerpt": "Exploring the evolution of frontend architecture and why micro-frontends are becoming the future of large-scale web applications.",
-    "url": "blog/modern-frontend-architecture.html",
+    "url": "blog/post.html?id=2025-09-28-modern-frontend-architecture",
     "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=400&fit=crop",
     "tags": ["Frontend", "Architecture", "React", "Micro-frontends"]
   },
   {
-    "id": "docker-kubernetes-guide",
+    "id": "2025-09-15-docker-kubernetes-guide",
     "title": "Docker & Kubernetes: A Practical Guide for Developers",
     "date": "2025-09-15",
     "excerpt": "Master containerization and orchestration with this comprehensive guide. From basic Docker containers to managing Kubernetes clusters.",
-    "url": "blog/docker-kubernetes-guide.html",
+    "url": "blog/post.html?id=2025-09-15-docker-kubernetes-guide",
     "image": "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&h=400&fit=crop",
     "tags": ["Docker", "Kubernetes", "DevOps", "Containers"]
   },
   {
-    "id": "typescript-advanced-patterns",
+    "id": "2025-08-22-typescript-advanced-patterns",
     "title": "Advanced TypeScript Patterns You Should Know",
     "date": "2025-08-22",
     "excerpt": "Deep dive into advanced TypeScript patterns including generics, conditional types, mapped types, and more. Level up your type-safety game.",
-    "url": "blog/typescript-advanced-patterns.html",
+    "url": "blog/post.html?id=2025-08-22-typescript-advanced-patterns",
     "image": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop",
     "tags": ["TypeScript", "JavaScript", "Programming", "Best Practices"]
   },
   {
-    "id": "rust-systems-programming",
+    "id": "2025-08-10-rust-systems-programming",
     "title": "Why Rust is the Future of Systems Programming",
     "date": "2025-08-10",
     "excerpt": "Rust combines performance with memory safety. Discover why major companies are adopting Rust for critical infrastructure and systems programming.",
-    "url": "blog/rust-systems-programming.html",
+    "url": "blog/post.html?id=2025-08-10-rust-systems-programming",
     "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
     "tags": ["Rust", "Systems Programming", "Performance", "Memory Safety"]
   }

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - dreygur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Orbitron', monospace; background: #000; color: #d97706; overflow-x: hidden; }
+
+        .grid-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background-image: linear-gradient(to right, rgba(217, 119, 6, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(217, 119, 6, 0.1) 1px, transparent 1px); background-size: 40px 40px; animation: gridMove 20s linear infinite; }
+        @keyframes gridMove { 0% { transform: translate(0, 0); } 100% { transform: translate(40px, 40px); } }
+
+        .diagonal-lines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background-image: repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(217, 119, 6, 0.03) 60px, rgba(217, 119, 6, 0.03) 61px); pointer-events: none; }
+
+        .gradient-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.05), transparent 70%); pointer-events: none; }
+
+        .content-wrapper { position: relative; z-index: 10; }
+        .sharp-border { border: 2px solid #d97706; border-radius: 0; }
+        .sharp-button { border: 2px solid #d97706; border-radius: 0; transition: all 0.3s ease; }
+        .sharp-button:hover { background: #d97706; color: #000; }
+        .uppercase-tracked { text-transform: uppercase; letter-spacing: 0.15em; }
+
+        .blog-image { filter: sepia(40%) saturate(200%) hue-rotate(10deg) brightness(0.9); }
+
+        /* Markdown Content Styles */
+        .markdown-content { line-height: 1.8; }
+        .markdown-content h1 { font-size: 2rem; font-weight: bold; margin-top: 2rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+        .markdown-content h2 { font-size: 1.5rem; font-weight: bold; margin-top: 2rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+        .markdown-content h3 { font-size: 1.25rem; font-weight: bold; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .markdown-content p { margin-bottom: 1.5rem; }
+        .markdown-content ul, .markdown-content ol { margin-left: 2rem; margin-bottom: 1.5rem; }
+        .markdown-content li { margin-bottom: 0.5rem; }
+        .markdown-content ul { list-style: square; }
+        .markdown-content strong { font-weight: bold; color: #f59e0b; }
+        .markdown-content code { background: rgba(217, 119, 6, 0.1); padding: 0.2rem 0.4rem; border: 1px solid #d97706; font-size: 0.9em; font-family: 'Courier New', monospace; }
+        .markdown-content pre { background: rgba(217, 119, 6, 0.05); border: 2px solid #d97706; padding: 1rem; margin: 1.5rem 0; overflow-x: auto; }
+        .markdown-content pre code { background: none; border: none; padding: 0; }
+        .markdown-content a { color: #f59e0b; text-decoration: underline; }
+        .markdown-content a:hover { color: #fbbf24; }
+        .markdown-content blockquote { border-left: 4px solid #d97706; padding-left: 1rem; margin: 1.5rem 0; opacity: 0.8; }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #d97706; }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="diagonal-lines"></div>
+    <div class="gradient-overlay"></div>
+
+    <div class="content-wrapper min-h-screen p-4 md:p-8">
+        <article class="max-w-4xl mx-auto">
+            <a href="../index.html" class="sharp-button px-4 py-2 inline-flex items-center gap-2 mb-8 hover:no-underline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                BACK TO HOME
+            </a>
+
+            <div id="loading" class="text-center py-12">
+                <div class="text-2xl uppercase-tracked">LOADING...</div>
+            </div>
+
+            <div id="blog-content" style="display: none;">
+                <!-- Header -->
+                <header class="sharp-border p-6 md:p-8 mb-8">
+                    <div id="tags" class="flex flex-wrap gap-2 mb-4"></div>
+                    <h1 id="title" class="text-3xl md:text-4xl font-bold uppercase-tracked mb-4"></h1>
+                    <div class="flex items-center gap-4 text-sm opacity-60">
+                        <span class="flex items-center gap-2">
+                            <i data-lucide="calendar" class="w-4 h-4"></i>
+                            <span id="date"></span>
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <i data-lucide="clock" class="w-4 h-4"></i>
+                            <span id="reading-time"></span>
+                        </span>
+                    </div>
+                </header>
+
+                <!-- Featured Image -->
+                <div id="image-container" class="sharp-border mb-8 overflow-hidden" style="display: none;">
+                    <img id="featured-image" alt="" class="w-full h-auto blog-image" />
+                </div>
+
+                <!-- Content -->
+                <div class="sharp-border p-6 md:p-8 markdown-content" id="content"></div>
+
+                <!-- Footer -->
+                <div class="mt-8 mb-8">
+                    <a href="../index.html" class="sharp-button px-6 py-3 inline-flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        BACK TO HOME
+                    </a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        if (!postId) {
+            document.getElementById('loading').innerHTML = '<div class="text-2xl uppercase-tracked text-red-500">POST NOT FOUND</div>';
+        } else {
+            loadBlogPost(postId);
+        }
+
+        async function loadBlogPost(id) {
+            try {
+                // Fetch the markdown file
+                const response = await fetch(`../_posts/${id}.md`);
+                if (!response.ok) throw new Error('Post not found');
+
+                const markdown = await response.text();
+
+                // Parse frontmatter and content
+                const { frontmatter, content } = parseFrontmatter(markdown);
+
+                // Update page
+                document.title = frontmatter.title + ' - dreygur';
+                document.getElementById('title').textContent = frontmatter.title;
+                document.getElementById('date').textContent = formatDate(frontmatter.date);
+                document.getElementById('reading-time').textContent = calculateReadingTime(content);
+
+                // Tags
+                if (frontmatter.tags) {
+                    const tagsContainer = document.getElementById('tags');
+                    frontmatter.tags.forEach(tag => {
+                        const span = document.createElement('span');
+                        span.className = 'sharp-border px-3 py-1 text-xs';
+                        span.textContent = tag;
+                        tagsContainer.appendChild(span);
+                    });
+                }
+
+                // Featured image
+                if (frontmatter.image) {
+                    document.getElementById('featured-image').src = frontmatter.image;
+                    document.getElementById('featured-image').alt = frontmatter.title;
+                    document.getElementById('image-container').style.display = 'block';
+                }
+
+                // Render markdown
+                document.getElementById('content').innerHTML = marked.parse(content);
+
+                // Show content, hide loading
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('blog-content').style.display = 'block';
+
+                // Initialize Lucide icons
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
+            } catch (error) {
+                console.error('Error loading blog post:', error);
+                document.getElementById('loading').innerHTML = '<div class="text-2xl uppercase-tracked text-red-500">POST NOT FOUND</div>';
+            }
+        }
+
+        function parseFrontmatter(markdown) {
+            const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+            const match = markdown.match(frontmatterRegex);
+
+            if (!match) return { frontmatter: {}, content: markdown };
+
+            const frontmatterText = match[1];
+            const content = match[2];
+
+            const frontmatter = {};
+            frontmatterText.split('\n').forEach(line => {
+                const colonIndex = line.indexOf(':');
+                if (colonIndex > 0) {
+                    const key = line.substring(0, colonIndex).trim();
+                    let value = line.substring(colonIndex + 1).trim();
+
+                    // Remove quotes
+                    if (value.startsWith('"') && value.endsWith('"')) {
+                        value = value.slice(1, -1);
+                    }
+
+                    // Parse arrays
+                    if (value.startsWith('[') && value.endsWith(']')) {
+                        value = JSON.parse(value);
+                    }
+
+                    frontmatter[key] = value;
+                }
+            });
+
+            return { frontmatter, content };
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function calculateReadingTime(content) {
+            const wordsPerMinute = 200;
+            const wordCount = content.trim().split(/\s+/).length;
+            const minutes = Math.ceil(wordCount / wordsPerMinute);
+            return `${minutes} min read`;
+        }
+    </script>
+</body>
+</html>
