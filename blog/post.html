@@ -115,7 +115,7 @@
         async function loadBlogPost(id) {
             try {
                 // Fetch the markdown file
-                const response = await fetch(`../_posts/${id}.md`);
+                const response = await fetch(`../posts/${id}.md`);
                 if (!response.ok) throw new Error('Post not found');
 
                 const markdown = await response.text();
