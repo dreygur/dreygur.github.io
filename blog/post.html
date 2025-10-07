@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,12 +39,21 @@
         .markdown-content li { margin-bottom: 0.5rem; }
         .markdown-content ul { list-style: square; }
         .markdown-content strong { font-weight: bold; color: #f59e0b; }
-        .markdown-content code { background: rgba(217, 119, 6, 0.1); padding: 0.2rem 0.4rem; border: 1px solid #d97706; font-size: 0.9em; font-family: 'Courier New', monospace; }
-        .markdown-content pre { background: rgba(217, 119, 6, 0.05); border: 2px solid #d97706; padding: 1rem; margin: 1.5rem 0; overflow-x: auto; }
-        .markdown-content pre code { background: none; border: none; padding: 0; }
+        .markdown-content code { background: rgba(217, 119, 6, 0.15); padding: 0.2rem 0.5rem; border: 1px solid #d97706; font-size: 0.9em; font-family: 'Courier New', monospace; border-radius: 3px; }
+        .markdown-content pre { background: #1a1a1a; border: 2px solid #d97706; padding: 0; margin: 1.5rem 0; overflow: hidden; }
+        .markdown-content pre code { background: none; border: none; padding: 1rem; display: block; overflow-x: auto; font-family: 'Courier New', monospace; border-radius: 0; }
         .markdown-content a { color: #f59e0b; text-decoration: underline; }
         .markdown-content a:hover { color: #fbbf24; }
         .markdown-content blockquote { border-left: 4px solid #d97706; padding-left: 1rem; margin: 1.5rem 0; opacity: 0.8; }
+
+        /* Override highlight.js theme for amber accent */
+        .hljs { background: #1a1a1a !important; color: #d97706 !important; }
+        .hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-section, .hljs-link { color: #f59e0b !important; }
+        .hljs-string, .hljs-title, .hljs-name, .hljs-type { color: #fbbf24 !important; }
+        .hljs-attribute, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #fcd34d !important; }
+        .hljs-comment, .hljs-quote, .hljs-deletion, .hljs-meta { color: #78716c !important; }
+        .hljs-number, .hljs-regexp, .hljs-built_in { color: #fb923c !important; }
+        .hljs-function .hljs-title { color: #fbbf24 !important; }
 
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #000; }
@@ -153,8 +164,25 @@
                     document.getElementById('image-container').style.display = 'block';
                 }
 
+                // Configure marked to use highlight.js
+                marked.setOptions({
+                    highlight: function(code, lang) {
+                        if (lang && hljs.getLanguage(lang)) {
+                            try {
+                                return hljs.highlight(code, { language: lang }).value;
+                            } catch (err) {}
+                        }
+                        return hljs.highlightAuto(code).value;
+                    }
+                });
+
                 // Render markdown
                 document.getElementById('content').innerHTML = marked.parse(content);
+
+                // Highlight all code blocks
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
 
                 // Show content, hide loading
                 document.getElementById('loading').style.display = 'none';
