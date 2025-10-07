@@ -384,10 +384,19 @@
                         {activeTab === 'projects' && (
                             <div className="masonry-grid">
                                 {repos.map(repo => (
-                                    <div key={repo.id} className="masonry-item sharp-border p-4 md:p-6 hover:bg-opacity-10 hover:bg-amber-600 transition-all">
-                                        <h3 className="text-lg md:text-xl font-bold uppercase-tracked mb-3 break-words">
-                                            {repo.name}
-                                        </h3>
+                                    <a
+                                        key={repo.id}
+                                        href={repo.html_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="masonry-item sharp-border p-4 md:p-6 hover:bg-opacity-10 hover:bg-amber-600 transition-all block no-underline"
+                                    >
+                                        <div className="flex items-start justify-between mb-3">
+                                            <h3 className="text-lg md:text-xl font-bold uppercase-tracked break-words flex-1">
+                                                {repo.name}
+                                            </h3>
+                                            <i data-lucide="arrow-up-right" className="w-5 h-5 flex-shrink-0 ml-2"></i>
+                                        </div>
                                         <p className="text-sm md:text-base mb-4 opacity-80 break-words">
                                             {repo.description || 'No description available'}
                                         </p>
@@ -407,16 +416,8 @@
                                                 <i data-lucide="git-fork" className="w-3 h-3"></i>
                                                 {repo.forks_count}
                                             </span>
-                                            <a
-                                                href={repo.html_url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="ml-auto hover:underline flex items-center gap-1"
-                                            >
-                                                VIEW <i data-lucide="external-link" className="w-3 h-3"></i>
-                                            </a>
                                         </div>
-                                    </div>
+                                    </a>
                                 ))}
                             </div>
                         )}
@@ -451,7 +452,7 @@
                             <div className="space-y-4 md:space-y-6">
                                 {blogPosts.length > 0 ? (
                                     blogPosts.map((post, idx) => (
-                                        <div key={idx} className="sharp-border overflow-hidden">
+                                        <a key={idx} href={post.url} className="sharp-border overflow-hidden block hover:bg-opacity-10 hover:bg-amber-600 transition-all no-underline">
                                             {post.image && (
                                                 <img
                                                     src={post.image}
@@ -470,22 +471,19 @@
                                                         ))}
                                                     </div>
                                                 )}
-                                                <h3 className="text-xl md:text-2xl font-bold uppercase-tracked mb-2 break-words">
-                                                    {post.title}
-                                                </h3>
+                                                <div className="flex items-start justify-between mb-2">
+                                                    <h3 className="text-xl md:text-2xl font-bold uppercase-tracked break-words flex-1">
+                                                        {post.title}
+                                                    </h3>
+                                                    <i data-lucide="arrow-up-right" className="w-5 h-5 flex-shrink-0 ml-2"></i>
+                                                </div>
                                                 <p className="text-sm md:text-base opacity-60 mb-3 flex items-center gap-2">
                                                     <i data-lucide="calendar" className="w-4 h-4"></i>
                                                     {post.date}
                                                 </p>
-                                                <p className="text-sm md:text-base mb-4 break-words">{post.excerpt}</p>
-                                                <a
-                                                    href={post.url}
-                                                    className="sharp-button px-4 md:px-6 py-2 inline-flex items-center gap-2 uppercase-tracked text-sm md:text-base"
-                                                >
-                                                    READ MORE <i data-lucide="arrow-right" className="w-4 h-4"></i>
-                                                </a>
+                                                <p className="text-sm md:text-base break-words">{post.excerpt}</p>
                                             </div>
-                                        </div>
+                                        </a>
                                     ))
                                 ) : (
                                     <div className="sharp-border p-8 md:p-12 text-center">
