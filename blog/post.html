@@ -115,10 +115,16 @@
         async function loadBlogPost(id) {
             try {
                 // Fetch the markdown file
-                const response = await fetch(`../posts/${id}.md`);
-                if (!response.ok) throw new Error('Post not found');
+                const url = `../posts/${id}.md`;
+                console.log('Fetching:', url);
+                const response = await fetch(url);
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    throw new Error(`Post not found: ${response.status} ${response.statusText}`);
+                }
 
                 const markdown = await response.text();
+                console.log('Markdown loaded, length:', markdown.length);
 
                 // Parse frontmatter and content
                 const { frontmatter, content } = parseFrontmatter(markdown);
@@ -160,7 +166,21 @@
                 }
             } catch (error) {
                 console.error('Error loading blog post:', error);
-                document.getElementById('loading').innerHTML = '<div class="text-2xl uppercase-tracked text-red-500">POST NOT FOUND</div>';
+                document.getElementById('loading').innerHTML = `
+                    <div class="sharp-border p-8">
+                        <div class="text-2xl uppercase-tracked text-red-500 mb-4">POST NOT FOUND</div>
+                        <p class="text-sm opacity-60">Error: ${error.message}</p>
+                        <p class="text-sm opacity-60 mt-2">Post ID: ${postId}</p>
+                        <p class="text-sm opacity-60 mt-2">URL: ../posts/${postId}.md</p>
+                        <a href="../index.html" class="sharp-button px-4 py-2 inline-flex items-center gap-2 mt-4">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            BACK TO HOME
+                        </a>
+                    </div>
+                `;
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
             }
         }
 
