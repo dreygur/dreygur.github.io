@@ -1,8 +1,8 @@
 # Jekyll Configuration
 title: Portfolio - dreygur
 description: A retro-tech portfolio with amber/gold theme
-baseurl: ""
-url: "https://dreygur.github.io"
+baseurl: 'https://dreygur.js.org'
+url: 'https://dreygur.js.org'
 
 # Build settings
 markdown: kramdown
